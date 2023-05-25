@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
             foreach ($result as $chapter) {
                 if ($chapter['storyId'] === $id) {
-
+                    
                     echo "<br><br>" . $chapter['chapterTitle'] . "<br>";
                     echo $chapter['chapterText'] . "<br>";
                     $chapterUserId = $chapter['userId'];
