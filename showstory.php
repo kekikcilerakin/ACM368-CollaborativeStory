@@ -39,29 +39,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     session_start();
 
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-
-        echo '<form action="insertchapter.php" method="post">
-        <label for="firstName">chapterTitle:</label>
-               <input type="text" name="chapter_title" id="chapterTitle" required>
+        ?>
+        <form action="insertchapter.php" method="post">
+            <p>
+                <label>Chapter Title:</label>
+                <input type="text" name="chapter_title" id="chapterTitle" required>
             </p>
- 
-             
-<p>
-               <label for="lastName">chapterText:</label>
-               <input type="text" name="chapter_text" id="chapterText" required>
+
+            <p>
+                <label>Story:</label><br>
+                <textarea name="chapter_text" id="chapterText" rows="4" cols="50" required></textarea>
             </p>
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Submit Chapter">
-        </div>
 
-        
-        <input type="hidden" name="story_id" id="storyId" value="'.$id.'">
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit Chapter">
+            </div>
 
-    </form>';
+            <input type="hidden" name="story_id" id="storyId" value="<?= $id ?>">
+        </form>
+        <?php
     } else {
         echo "<br><a href='login.php'>Login to Add a New Chapter</a>";
     }
-    
+
     exit();
 }
 ?>

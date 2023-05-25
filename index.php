@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <style>
         .story-container {
@@ -15,26 +16,43 @@
         }
     </style>
 </head>
+
 <body>
     <?php
     session_start();
     require_once "connection.php";
 
-    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) { 
-        echo '
+    echo $_SESSION["username"];
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $_SESSION["id"] = null;
+        $_SESSION["username"] = null;
+        $_SESSION["loggedin"] = false;
+        header("location: index.php");
+    }
+
+    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+
+        ?>
         <h2>Add Story</h2>
         <form method="post" action="insertstory.php">
             <label for="title">Story Title:</label>
             <input type="text" name="story_title" required><br><br>
             <input type="submit" value="Create Story">
+
         </form>
-        <br>
-        <hr><hr>';
+
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <input type="submit" value="Log Out">
+        </form>
+        <hr>
+        <?php
     } else {
-        echo '<br><a href="login.php">Login to Add a New Story</a>';
+        echo '<a href="login.php">Login to Add a New Story</a>';
     }
 
-    echo '<h2>Stories</h2><div class="story-container">';
+    echo '<h2>Stories</h2>';
+    echo '<div class="story-container">';
 
     $storiesQuery = "SELECT title, id FROM stories";
     $result = $conn->query($storiesQuery);
@@ -47,8 +65,9 @@
             echo '</div>';
         }
     }
-    
+
     echo '</div>';
     ?>
 </body>
+
 </html>
