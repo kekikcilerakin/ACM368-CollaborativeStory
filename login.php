@@ -94,8 +94,82 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222222;
+            color: white; /* Font rengini beyaz yapar */
+        }
+
+        .wrapper {
+            max-width: 360px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #333333;
+            border-radius: 4px;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+            margin-top: 100px;
+        }
+
+        .wrapper h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: white; /* Font rengini beyaz yapar */
+        }
+
+        .form-control:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .form-control.is-invalid {
+            border-color: #dc3545;
+        }
+
+        .invalid-feedback {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .signup-link {
+            margin-top: 10px;
+            text-align: center;
+            color: #007bff;
+        }
+
+        .signup-link a {
+            font-weight: bold;
+            color: white; /* Font rengini beyaz yapar */
+        }
+        
     </style>
 </head>
 <body>
