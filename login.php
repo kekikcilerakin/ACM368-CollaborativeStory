@@ -93,11 +93,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com%22%3E/
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Rubik', sans-serif;
             background-color: #222222;
-            color: white; /* Font rengini beyaz yapar */
+            color: white;  /* Font rengini beyaz yapar */
         }
 
         .wrapper {
@@ -130,7 +133,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            color: white; /* Font rengini beyaz yapar */
+             /* Font rengini beyaz yapar */
         }
 
         .form-control:focus {

@@ -1,91 +1,75 @@
 <!DOCTYPE html>
 <html>
-
+<link rel="preconnect" href="https://fonts.googleapis.com%22%3E/
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
 <head>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            color : white;
-            background : #222222;
-
+            font-family: 'Rubik', sans-serif;
+            background: #222222;
+            color: white;
         }
 
-        .header {
-            background-color: #222222;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background : #333333;
-        }
-
-        .story {
+        .story-container {
             display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+           
+
+        }
+        hr{
+            margin : auto;
+            width :90%;
+            
+        }
+        .story {
+            margin: 10px;
             padding: 10px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            height: 300px;
         }
 
-        .story-image {
-            width: 100%;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 4px;
+        .storyImage {
+            width: 144px;
+            height: 225px;
         }
 
-        .story-title {
-            margin-top: 10px;
-            font-size: 18px;
-            font-weight: bold;
+        .second-addstory-div {
+            width: 20%;
+            float: right;
+            padding-bottom: 20px;
+            border: 1px solid gray;
+            position: -webkit-sticky;
+            /* Safari & IE */
+            position: sticky;
+            top: 0;
+           
+            align-items: center;
+            text-align: center;
+            
         }
-
-        .story-author {
-            margin-top: 5px;
-            color: #666;
-        }
-
-        .add-story-form {
-            margin-top: 20px;
-        }
-
-        .add-story-form label {
+        
+        .btn{
             display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .add-story-form input[type="text"] {
-            width: 100%;
+            width: 50%;
             padding: 5px;
-            border: 1px solid #ccc;
+            background-color: #007bff;
+            margin : auto ;
+            margin-bottom : 8px;
             border-radius: 4px;
-        }
-
-        .add-story-form input[type="submit"] {
-            margin-top: 10px;
-            padding: 8px 12px;
-            background-color: #4CAF50;
             color: #fff;
-            border: none;
-            border-radius: 4px;
             cursor: pointer;
         }
-
-        .logout-btn {
-            margin-top: 20px;
+        .logout{
+            background : red;
         }
-
-        .login-link {
-            margin-top: 20px;
-            text-align: center;
-            color: #4CAF50;
+        .loginToAdd{
+            width: 25%;
         }
+       a{
+       color : white;
+       text-decoration: none; 
+       }
     </style>
 </head>
 
@@ -94,7 +78,6 @@
     session_start();
     require_once "connection.php";
 
-    echo $_SESSION["username"];
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["id"] = null;
@@ -105,27 +88,34 @@
 
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
-        ?>
-        <h2>Add Story</h2>
-        <form method="post" action="insertstory.php">
-            <label for="title">Story Title:</label>
-            <input type="text" name="story_title" required><br><br>
-            <label for="title">Story Image:</label>
-            <input type="text" name="story_image" required><br><br>
-            <input type="submit" value="Create Story">
+    ?>
+        <div class="second-addstory-div">
 
-        </form>
+            <?php echo '<h2>' .$_SESSION["username"]. '</h2>'; ?><br><hr><br><br><br><br>
+            <h2>Add Story</h2>
+          
+            <form method="post" action="insertstory.php">
+                <label for="title">Story Title:&nbsp;&nbsp;&nbsp;  </label>
+                <input type="text" name="story_title" required><br><br>
+                <label for="title">Story Image:</label>
+                <input type="text" name="story_image" required><br><br><br>
+                <input class = "btn" type="submit" value="Create Story"><br><br><br><br><br><br><br><br> <hr> <br><br>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <input type="submit" value="Log Out">
-        </form>
-        <hr>
-        <?php
+            </form>
+
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+               <input class = "btn logout" type="submit" value="Log Out">
+            </form>
+        
+
+
+        </div>
+    <?php
     } else {
-        echo '<a href="login.php">Login to Add a New Story</a>';
+        echo "<div class ='btn loginToAdd' style = 'text-align : center; margin-top : 20px'  > <a href='login.php' >Login to Add a New Story</a> </div>";
     }
 
-    echo '<h2>Stories</h2>';
+    echo '<h2 style = "text-align : center">Stories</h2>';
     echo '<div class="story-container">';
 
     $storiesQuery = "SELECT title, id, imageURL, userId FROM stories";
@@ -144,7 +134,6 @@
             foreach ($result as $username) {
                 if ($username['id'] === $story['userId']) {
                     echo "Author: " . $username['username'];
-
                 }
             }
 
