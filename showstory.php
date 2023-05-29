@@ -40,6 +40,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         ?>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222222;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #333333;
+            color: #ffffff;
+        }
+        
+        h2, h3, h4 {
+            color: #ffffff;
+        }
+        
+        form {
+            margin-top: 20px;
+        }
+        
+        label {
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            resize: vertical;
+        }
+        
+        .form-group {
+            margin-top: 10px;
+        }
+        
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+        
+        a {
+            color: #ffffff;
+        }
+        
+        a:hover {
+            color: #f8f9fa;
+            text-decoration: none;
+        }
+    </style>
         <form action="insertchapter.php" method="post">
             <p>
                 <label>Chapter Title:</label>
