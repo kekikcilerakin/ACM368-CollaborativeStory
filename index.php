@@ -3,21 +3,88 @@
 
 <head>
     <style>
-        .story-container {
-            display: flex;
-            flex-wrap: wrap;
+        body {
+            font-family: Arial, sans-serif;
+            color : white;
+            background : #222222;
+
+        }
+
+        .header {
+            background-color: #222222;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background : #333333;
         }
 
         .story {
-            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
             padding: 10px;
             border: 1px solid #ccc;
-            height: 300px;
+            border-radius: 4px;
         }
 
-        .storyImage {
-            width: 144px;
-            height: 225px;
+        .story-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .story-title {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .story-author {
+            margin-top: 5px;
+            color: #666;
+        }
+
+        .add-story-form {
+            margin-top: 20px;
+        }
+
+        .add-story-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .add-story-form input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .add-story-form input[type="submit"] {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .logout-btn {
+            margin-top: 20px;
+        }
+
+        .login-link {
+            margin-top: 20px;
+            text-align: center;
+            color: #4CAF50;
         }
     </style>
 </head>
