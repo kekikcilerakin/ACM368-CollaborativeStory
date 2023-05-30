@@ -1,0 +1,6 @@
+connection.php      connects to the database.
+insertchapter.php   sends the chapter data in the form to database
+insertstory.php     sends the story data in the form to database
+login.php           login page
+register.php        register page
+showstory.php       page where user reads or extends a story

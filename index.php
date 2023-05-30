@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <link rel="preconnect" href="https://fonts.googleapis.com%22%3E/
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+<link rel=" preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+
 <head>
     <style>
         body {
@@ -14,14 +15,16 @@
         .story-container {
             display: flex;
             flex-wrap: wrap;
-           
+
 
         }
-        hr{
-            margin : auto;
-            width :90%;
-            
+
+        hr {
+            margin: auto;
+            width: 90%;
+
         }
+
         .story {
             margin: 10px;
             padding: 10px;
@@ -43,33 +46,36 @@
             /* Safari & IE */
             position: sticky;
             top: 0;
-           
+
             align-items: center;
             text-align: center;
-            
+
         }
-        
-        .btn{
+
+        .btn {
             display: block;
             width: 50%;
             padding: 5px;
             background-color: #007bff;
-            margin : auto ;
-            margin-bottom : 8px;
+            margin: auto;
+            margin-bottom: 8px;
             border-radius: 4px;
             color: #fff;
             cursor: pointer;
         }
-        .logout{
-            background : red;
+
+        .logout {
+            background: red;
         }
-        .loginToAdd{
+
+        .loginToAdd {
             width: 25%;
         }
-       a{
-       color : white;
-       text-decoration: none; 
-       }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -78,39 +84,42 @@
     session_start();
     require_once "connection.php";
 
-
+    //logout start
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["id"] = null;
         $_SESSION["username"] = null;
         $_SESSION["loggedin"] = false;
         header("location: index.php");
     }
+    //logout end
 
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
-    ?>
+        ?>
         <div class="second-addstory-div">
 
-            <?php echo '<h2>' .$_SESSION["username"]. '</h2>'; ?><br><hr><br><br><br><br>
+            <?php echo '<h2>' . $_SESSION["username"] . '</h2>'; ?><br>
+            <hr><br><br><br><br>
             <h2>Add Story</h2>
-          
+
             <form method="post" action="insertstory.php">
-                <label for="title">Story Title:&nbsp;&nbsp;&nbsp;  </label>
+                <label for="title">Story Title:&nbsp;&nbsp;&nbsp; </label>
                 <input type="text" name="story_title" required><br><br>
                 <label for="title">Story Image:</label>
                 <input type="text" name="story_image" required><br><br><br>
-                <input class = "btn" type="submit" value="Create Story"><br><br><br><br><br><br><br><br> <hr> <br><br>
+                <input class="btn" type="submit" value="Create Story"><br><br><br><br><br><br><br><br>
+                <hr><br><br>
 
             </form>
 
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-               <input class = "btn logout" type="submit" value="Log Out">
+                <input class="btn logout" type="submit" value="Log Out">
             </form>
-        
+
 
 
         </div>
-    <?php
+        <?php
     } else {
         echo "<div class ='btn loginToAdd' style = 'text-align : center; margin-top : 20px'  > <a href='login.php' >Login to Add a New Story</a> </div>";
     }
@@ -118,6 +127,7 @@
     echo '<h2 style = "text-align : center">Stories</h2>';
     echo '<div class="story-container">';
 
+    //get stories from database start
     $storiesQuery = "SELECT title, id, imageURL, userId FROM stories";
     $result = $conn->query($storiesQuery);
 
@@ -140,6 +150,7 @@
             echo '</div>';
         }
     }
+    //get stories from database end
 
     echo '</div>';
     ?>

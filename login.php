@@ -1,79 +1,79 @@
 <?php
 // Initialize the session
 session_start();
- 
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     header("location: index.php");
     exit;
 }
- 
+
 // Include config file
 require_once "connection.php";
- 
+
 // Define variables and initialize with empty values
 $username = $password = "";
 $username_err = $password_err = $login_err = "";
- 
+
 // Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // Check if username is empty
-    if(empty(trim($_POST["username"]))){
+    if (empty(trim($_POST["username"]))) {
         $username_err = "Please enter username.";
-    } else{
+    } else {
         $username = trim($_POST["username"]);
     }
-    
+
     // Check if password is empty
-    if(empty(trim($_POST["password"]))){
+    if (empty(trim($_POST["password"]))) {
         $password_err = "Please enter your password.";
-    } else{
+    } else {
         $password = trim($_POST["password"]);
     }
-    
+
     // Validate credentials
-    if(empty($username_err) && empty($password_err)){
+    if (empty($username_err) && empty($password_err)) {
         // Prepare a select statement
         $sql = "SELECT id, username, password FROM users WHERE username = ?";
-        
-        if($stmt = $conn->prepare($sql)){
+
+        if ($stmt = $conn->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("s", $param_username);
-            
+
             // Set parameters
             $param_username = $username;
-            
+
             // Attempt to execute the prepared statement
-            if($stmt->execute()){
+            if ($stmt->execute()) {
                 // Store result
                 $stmt->store_result();
-                
+
                 // Check if username exists, if yes then verify password
-                if($stmt->num_rows == 1){                    
+                if ($stmt->num_rows == 1) {
                     // Bind result variables
                     $stmt->bind_result($id, $username, $saved_pass);
-                    if($stmt->fetch()){
-                        if($password == $saved_pass){
+                    if ($stmt->fetch()) {
+                        if ($password == $saved_pass) {
                             // Password is correct, so start a new session
                             session_start();
-                            
+
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;               
-                            
+                            $_SESSION["username"] = $username;
+
                             // Redirect user to welcome page
                             header("location: index.php");
-                        } else{
+                        } else {
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
                         }
                     }
-                } else{
+                } else {
                     // Username doesn't exist, display a generic error message
                     $login_err = "Invalid username or password.";
                 }
-            } else{
+            } else {
                 echo "Oops! Something went wrong. Please try again later.";
             }
 
@@ -81,26 +81,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $stmt->close();
         }
     }
-    
+
     // Close connection
     $conn->close();
 }
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com%22%3E/
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link rel=" preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Rubik', sans-serif;
             background-color: #222222;
-            color: white;  /* Font rengini beyaz yapar */
+            color: white;
+            /* Font rengini beyaz yapar */
         }
 
         .wrapper {
@@ -133,7 +135,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
-             /* Font rengini beyaz yapar */
         }
 
         .form-control:focus {
@@ -170,32 +171,40 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         .signup-link a {
             font-weight: bold;
-            color: white; /* Font rengini beyaz yapar */
+            color: white;
+            /* Font rengini beyaz yapar */
         }
-        
     </style>
 </head>
+
 <body>
     <div class="wrapper">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
 
-        <?php 
-        if(!empty($login_err)){
+        <?php
+        if (!empty($login_err)) {
             echo '<div class="alert alert-danger">' . $login_err . '</div>';
-        }        
+        }
         ?>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Username</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-                <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div>    
+                <input type="text" name="username"
+                    class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
+                    value="<?php echo $username; ?>">
+                <span class="invalid-feedback">
+                    <?php echo $username_err; ?>
+                </span>
+            </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
+                <input type="password" name="password"
+                    class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
+                <span class="invalid-feedback">
+                    <?php echo $password_err; ?>
+                </span>
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
@@ -204,4 +213,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </form>
     </div>
 </body>
+
 </html>
